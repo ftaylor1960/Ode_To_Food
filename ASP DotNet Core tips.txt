@@ -1,0 +1,3 @@
+
+<ctrl>. - this is a macro for adding a namespace, or creating a new interface or other class.
+
