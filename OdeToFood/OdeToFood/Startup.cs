@@ -26,6 +26,7 @@ namespace OdeToFood
                               IConfiguration configuration,
                               IGreeter greeter)
         {
+            // this formats exceptions so that they are more readable and informative
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

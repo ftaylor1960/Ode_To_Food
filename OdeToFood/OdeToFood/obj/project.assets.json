@@ -11800,11 +11800,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Pluralsight\\ASP DotNet Core Fundamentals\\OdeToFood\\OdeToFood\\OdeToFood.csproj",
+      "projectUniqueName": "D:\\Pluralsight\\ASP_DotNet_Core_Fundamentals\\Ode_To_Food\\OdeToFood\\OdeToFood\\OdeToFood.csproj",
       "projectName": "OdeToFood",
-      "projectPath": "D:\\Pluralsight\\ASP DotNet Core Fundamentals\\OdeToFood\\OdeToFood\\OdeToFood.csproj",
+      "projectPath": "D:\\Pluralsight\\ASP_DotNet_Core_Fundamentals\\Ode_To_Food\\OdeToFood\\OdeToFood\\OdeToFood.csproj",
       "packagesPath": "C:\\Users\\Francine\\.nuget\\packages\\",
-      "outputPath": "D:\\Pluralsight\\ASP DotNet Core Fundamentals\\OdeToFood\\OdeToFood\\obj\\",
+      "outputPath": "D:\\Pluralsight\\ASP_DotNet_Core_Fundamentals\\Ode_To_Food\\OdeToFood\\OdeToFood\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
