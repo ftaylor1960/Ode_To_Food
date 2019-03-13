@@ -21,7 +21,7 @@ instantiate a greeter whenever it is injected.  There are three possible scopes 
 	services.AddScoped<IGreeter, Greeter>(); - one will be created for each HTTP request
 
 Now, in order to use the greeter, just pass IGreeter greeter in as a parameter to any method (see example
-in Startup.Configure), and you have an instantiated Greeter object.
+in Startup1.Configure in Examples_Startup), and you have an instantiated Greeter object.
 
 Note that in Greeter, there is an instantiator which takes (IConfiguration configuration) as a parameter.
 This is the instantiator that will be used in the above examples.  You don't have to specify that
