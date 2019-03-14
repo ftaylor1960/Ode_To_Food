@@ -47,6 +47,26 @@ Environment
 
 In Properties -> launchSettings.json we see two command names defined, IIS Express and OdeToFood.
 We have changed OdeToFood to run with its environmental variable as "Production" and IIS Express
-set to run as "Development".  In appsettings.json we have settings and connection strings and what-not
+set to run as "Development".  What that means is that when our command pulldown (see it in the toolbar)
+is "IIS Express", our Development environment variable will be TRUE, and when we are running in OdeToFood,
+IsProduction() will be TRUE.  In appsettings.json we have settings and connection strings and what-not
 which are used by default.  We have created an appsettings.Development.json file, which VS automatically
-detects and uses to override values if we are in that environment.
+detects and uses to override values if we are in that environment (development).
+
+Static files
+------------
+
+Example in Startup3 shows you 2 middleware options for serving up static files, and another middleware 
+that combines both.  Your static content needs to be in wwwroot.
+
+Routing Middleware (Controllers)
+------------------
+
+Example in Startup4 shows the simplest form of the routing middleware.  Once you add this middleware
+and service, you can start building controllers.
+
+The heart of the MVC system are the controllers.  A controller is a file that ends in "Controller".
+They are usually kept in a Controllers folder.  The HomeController is MVC's default controller.
+
+"Routing" is what the middleware does to decide which Controller method to invoke.
+    "Convention-based routing" - done from startup (example: Startup5, Startup6, Startup7)
