@@ -38,6 +38,15 @@ Middleware lives in Startup.cs, in the Configure method.  The simplest for of mi
    });
 
 By convention, most middleware begins with the word "Use".  For example:
-	app.UseWelcomPage(); - this would send users to the welcome page, not matter the URL that they are on
+	app.UseWelcomePage(); - this would send users to the welcome page, not matter the URL that they are on
 The following sends users to the welcome page only when wp is in the URL
-	app.UseWelcomPage(new WelcomePageOption { Path="wp"});
+	app.UseWelcomePage(new WelcomePageOption { Path="wp"});
+
+Environment
+-----------
+
+In Properties -> launchSettings.json we see two command names defined, IIS Express and OdeToFood.
+We have changed OdeToFood to run with its environmental variable as "Production" and IIS Express
+set to run as "Development".  In appsettings.json we have settings and connection strings and what-not
+which are used by default.  We have created an appsettings.Development.json file, which VS automatically
+detects and uses to override values if we are in that environment.
