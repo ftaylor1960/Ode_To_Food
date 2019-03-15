@@ -2,20 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using OdeToFood.Models;
 
 namespace OdeToFood.Controllers
 {
-    // The name of this controller is significant.  MVC uses HomeController as its default,
-    // so if the request does not ask for a specific controller, MVC will try to route to
-    // the Home controller.
-    public class HomeController
+    public class HomeController : Controller
     {
-        // Index is the default method in a controller.  If MVC knows what controller to
-        // invoke but doesn't have a a specificmethod, it will try to call the Index method
-        public string Index()
+        public IActionResult Index()
         {
-            // we can just return a simple string and it will show up on a web page
-            return "Hello from the home controller";
+            // if we just return this result without defining a view, we get an error.
+            // There are two possible names for view that match this:
+            //     /Views/Home/Index.cshtml
+            //     /Views/Shared/Index.html
+            return View();
         }
+
+    }
+    public class HomeController4 : Controller
+    {
+        public IActionResult Index()
+        {
+            // if we just return this result without defining a view, we get an error.
+            // There are two possible names for view that match this:
+            //     /Views/Home/Index.cshtml
+            //     /Views/Shared/Index.html
+            return View();
+        }
+        public IActionResult Index2()
+        {
+            // if we specify the view's name to be home, these are the file names that match:
+            //     /Views/Home/Home.cshtml
+            //     /Views/Shared/Home.html
+            return View("Home");
+        }
+
     }
 }
+

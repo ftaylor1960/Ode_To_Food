@@ -38,6 +38,14 @@ namespace OdeToFood.Examples
             // Note: you don't normally see app.Run in 'real' applications because it is
             //       so basic you can only do simple hings with it
 
+            app.Run(async (context) =>
+            {
+                // (optional) if there may be some ambiguity about the type of the data that
+                //            you are sending as a response.
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync("Not found");
+            });
+
             // Here's one way to get information from appsettings.json and use it in any method.
             // IConfiguration configuration is available to inject into any method
             app.Run(async (context) =>
@@ -243,10 +251,35 @@ namespace OdeToFood.Examples
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id:int:min(1)}");
             });
 
+            // This just makes things a bit neater by giving you a discrete method to put your routes in
+            app.UseMvc(ConfigureRoutes);
+
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Greetings, Earthling!");
             });
+        }
+        // This contains "conventional" route patterns
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            // MapRoute takes a friendly name for the route, and then a template.
+            // The template tells MVC how to pick apart the URL in order to determine
+            // the correct controller and method.
+
+            // URL: /Home/Index - goes to HomeController.Index()
+            routeBuilder.MapRoute("Default", "{controller}/{action}");
+
+            // URL: admin/Home/Index - goes to HomeController.Index()
+            routeBuilder.MapRoute("Default", "admin/{controller}/{action}");
+
+            // URL: admin/Home/Index - goes to HomeController.Index() and can
+            //        take an id paramter, but id isn't required.
+            routeBuilder.MapRoute("Default", "admin/{controller}/{action}/{id?}");
+
+            // URL: / - goes to HomeController.Index() because if we don't specify
+            //          a controller or an action, it uses the default.
+            //      /home also makes it to the correct route.
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}");
         }
     }
     #endregion

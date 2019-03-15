@@ -36,47 +36,47 @@ namespace OdeToFood
                 app.UseDeveloperExceptionPage();
             }
 
-            // This does our app.UseMvc with examples of route templates.
-            app.UseMvc(routes =>
-            {
-                // It does pretty much the same thing as app.UseMvcWithDefaultRoute(),
-                // since Home and Index are the "default defaults" for MVC.
-                //     If no controller is specified, it defaults to Home
-                //     If no action is specified, it defaults to Index()
-                //     If there is an id parameter it passes it on, but it is not required
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-                // this does the same thing, with property names
-                routes.MapRoute(
-                    name: "default_route",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
-                // this does exactly the same thing, but the parts are completely spelled out
-                routes.MapRoute(
-                    name: "default_Route",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
-
-
-                // this constrains id to be an integer value.  This it will match
-                // /Products/Details/17 but not /Products/Details/Apples
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id:int}");
-
-
-            });
-
-            // This allows MVC to detect patterns in the request, and route them to specific
-            // files.  If we want this to work, we must remember to add the service.
-            //app.UseMvcWithDefaultRoute();
+            // This overload will take action of IRouteBuilder.
+            app.UseMvc(ConfigureRoutes);
 
             app.Run(async (context) =>
             {
                 string greeting = greeter.GetMessageOfTheDay();
-                // we are adding the name of the environment variable into the greeting
-                // This is typically set to the value of ASPNETCORE_ENVIRONMENT, either
-                // in launchSettings.json or Properties -> Debug
-                await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
+                await context.Response.WriteAsync($"Not found");
+                //await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
             });
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            // MapRoute takes a friendly name for the route, and then a template.
+            // The template tells MVC how to pick apart the URL in order to determine
+            // the correct controller and method.
+
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}");
+        }
+        // This is a "conventional" route pattern
+        private void ConfigureRoutes1(IRouteBuilder routeBuilder)
+        {
+            // MapRoute takes a friendly name for the route, and then a template.
+            // The template tells MVC how to pick apart the URL in order to determine
+            // the correct controller and method.
+
+            // URL: /Home/Index - goes to HomeController.Index()
+            routeBuilder.MapRoute("Default", "{controller}/{action}");
+
+            // URL: admin/Home/Index - goes to HomeController.Index()
+            routeBuilder.MapRoute("Default", "admin/{controller}/{action}");
+
+            // URL: admin/Home/Index - goes to HomeController.Index() and can
+            //        take an id paramter, but id isn't required.
+            routeBuilder.MapRoute("Default", "admin/{controller}/{action}/{id?}");
+
+            // URL: / - goes to HomeController.Index() because if we don't specify
+            //          a controller or an action, it uses the default.
+            //      /home also makes it to the correct route.
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}");
         }
     }
 
