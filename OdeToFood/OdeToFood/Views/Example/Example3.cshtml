@@ -8,13 +8,14 @@
     <table>
         @foreach (var restaurant in Model)
         {
-        <tr>
-            <td>@restaurant.Id</td>
-            <td>@restaurant.Name</td>
-        </tr>
+            <tr>
+                <td>@restaurant.Id</td>
+                <td>@restaurant.Name</td>
+            </tr>
         }
     </table>
     <h1>My restaurant page has @Model.Count() restaurants</h1>
     <div>This is the index view</div>
 </body>
 </html>
+

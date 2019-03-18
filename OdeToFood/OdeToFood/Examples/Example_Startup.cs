@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OdeToFood.Services;
 
 namespace OdeToFood.Examples
 {
@@ -364,5 +366,36 @@ namespace OdeToFood.Examples
     }
     #endregion
 
+    #region Startup8 - services registered
+    public class Startup8
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+        }
 
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app,
+                              IHostingEnvironment env,
+                              IGreeter greeter,
+                              IRestaurantData restaurants,
+                              ILogger<Startup> logger)
+        {
+            // this formats exceptions so that they are more readable and informative
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.Run(async (context) =>
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Greetings, Earthling!");
+                sb.Append($"We have {restaurants.GetAll().Count()} restaurants");
+                await context.Response.WriteAsync(sb.ToString());
+            });
+        }
+    }
+    #endregion
 }

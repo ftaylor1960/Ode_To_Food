@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OdeToFood.Models;
+using OdeToFood.Services;
 
 namespace OdeToFood.Examples
 {
@@ -162,6 +163,67 @@ namespace OdeToFood.Examples
             return new ObjectResult(model);
         }
 
+    }
+    #endregion
+
+    #region HomeController4 (returning a simple View)
+    public class HomeController4 : Controller
+    {
+        public IActionResult Index()
+        {
+            // if we just return this result without defining a view, we get an error.
+            // There are two possible names for view that match this:
+            //     /Views/Home/Index.cshtml
+            //     /Views/Shared/Index.html
+            return View();
+        }
+        public IActionResult Index2()
+        {
+            // if we specify the view's name to be home, these are the file names that match:
+            //     /Views/Home/Home.cshtml
+            //     /Views/Shared/Home.html
+            return View("Home");
+        }
+    }
+    #endregion
+
+    #region HomeController5 (returning a view being passed a model)
+    public class HomeController5 : Controller
+    {
+        public IActionResult Index3()
+        {
+            Restaurant restaurant = new Restaurant() { Name = "Francine's Burgers", Id = 1 };
+
+            // This will look for /Views/Home/Index3.cshtml, which is a page expecting a
+            // restaurant model to be passed to it.  See Example1.cshtml and Example2.cshtml
+            // for examples of pages that will accept a restaurant model.
+            return View(restaurant);
+        }
+    }
+    #endregion
+
+    #region HomeController6 (returning a view that takes a collection from a service)
+    public class HomeController6 : Controller
+    {
+        // Note: in order to be able to pass this IRestaurantData into the method, it needs
+        //       to be defined and registered.
+        //
+        //  The service is defined in /Services/IRestaurantData an /Services/InMemoryRestaurantData
+        //
+        //  Then the service must be registered in Startup.ConfigureServices:
+        //       services.AddScoped<IRestaurantData, InMemoryRestaurantData>(); (see Startup8)
+        //
+        public HomeController6(IRestaurantData restaurantData)
+        {
+            _restaurantData = restaurantData;
+        }
+
+        // See Example3.cshtml for the view which accepts this model.
+        public IActionResult Index()
+        {
+            return View(_restaurantData.GetAll());
+        }
+        private IRestaurantData _restaurantData;
     }
     #endregion
 }

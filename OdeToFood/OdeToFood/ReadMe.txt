@@ -1,8 +1,11 @@
 ﻿
 Since there are so many variations on each technique, I like to create small, simple examples of each and
 put them into example files when the code examples need to be in a specific place.  For example, code
-that needs to be in the Startup.cs page is put in classes named Starup1, Startup2, etc, and you can
-find it in teh file named Example_Startup.
+that needs to be in the Startup.cs page is put in classes named Startup1, Startup2, etc, and you can
+find it in the file named Example_Startup.
+
+Since views need to be in the /Views folder, for my example views I created a /Views/Example folder,
+and I gave each view its own separate file.
 
 
 To use dependency injection to access the configuration file from anywhere
@@ -32,6 +35,11 @@ in Startup1.Configure in Examples_Startup), and you have an instantiated Greeter
 Note that in Greeter, there is an instantiator which takes (IConfiguration configuration) as a parameter.
 This is the instantiator that will be used in the above examples.  You don't have to specify that
 parameter in the service registry because DotNetCore can inject it by default.
+
+Note that services should always be accessed through interfaces.
+
+Another example is /Services/IRestaurantData and /Startup/InMemoryRestaurantData.  Startup8 and
+HomeController6 and Example3.cshtml contain examples using it.
 
 Middleware
 ----------
@@ -96,8 +104,16 @@ Examples of IActionResult, and Controller properties, in HomeController2
 You can also return an object or collection of objects.  MVC reads the "accept types header" sent by the client
 to define what type of serialization it needs.  This is called "content negotiation".  Example in HomeController3.
 
-Returning a Razor view
-----------------
+You can also return a View.  See HomeController4 for an example of this.
 
-Views all need to live in the /Home folder.  You create subfolders with names that match your controllers.
-Then create a "Razor View" object, which will have a .cshtml extension.
+Returning a Razor view
+----------------------
+
+Views all need to live in the /Views folder.  You create subfolders with names that match your controllers.
+Then create a page with a .cshtml extension.
+
+HomeController4 has a simple example of where MVC looks for Views.
+
+HomeController5 shows examples of how you can pass a model in to the cshtml page.
+
+HomeController6 shows a data services being used to pass a collection of data to teh cshtml page.
