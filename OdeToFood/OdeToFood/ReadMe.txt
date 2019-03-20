@@ -117,3 +117,13 @@ HomeController4 has a simple example of where MVC looks for Views.
 HomeController5 shows examples of how you can pass a model in to the cshtml page.
 
 HomeController6 shows a data services being used to pass a collection of data to teh cshtml page.
+
+Data Models
+-----------
+
+A View Model (usually stored in /ViewModels) carries all the information needed by a view
+A View Model can be used for "output" or "input"
+   Simple example of an "output" ViewModel in Example4.cshtml, HomeIndexViewModel1, HomeController7
+
+An example of views which navigate between pages via links which call routes:
+    HomeController7, Example5Index.cshtml, Example5Detail.cshtml

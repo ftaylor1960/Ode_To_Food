@@ -1,0 +1,35 @@
+﻿@model OdeToFood.ViewModels.HomeIndexViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>@Model.CurrentMessage</h1>
+    <table>
+        @foreach (var restaurant in Model.Restaurants)
+        {
+            <tr>
+                <td>@restaurant.Id</td>
+                <td>@restaurant.Name</td>
+
+                @* Here are several ways to do a link *@
+                <td><a href="/home/details/@restaurant.Id">Details</a></td>
+                <td>@Html.ActionLink("Go", "Details", new { @restaurant.Id })</td>
+                <td>@Html.ActionLink("Go2", "Details", new { id = @restaurant.Id })</td>
+
+                @* This is how to do a link with "tag helpers".  In order to use tag helpers
+                    you need to have added in /Views, an MVC ViewImports Page.  This
+                    page is called _ViewImports.cshtml.  This page doesn't render anything,
+                    it just provides support to other pages (like a library).  This page
+                    contains this: @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers.
+                    This directive says add all Microsoft tag helpers from this assembly. *@
+                <td><a asp-action="Details" asp-route-id="@restaurant.Id">More</a></td>
+            </tr>
+        }
+    </table>
+    <h1>My restaurant page has @Model.Restaurants.Count() restaurants</h1>
+    <div>This is the index view</div>
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+﻿@model OdeToFood.ViewModels.HomeIndexViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>@Model.CurrentMessage</h1>
+    <table>
+        @foreach (var restaurant in Model.Restaurants)
+        {
+            <tr>
+                <td>@restaurant.Id</td>
+                <td>@restaurant.Name</td>
+            </tr>
+        }
+    </table>
+    <h1>My restaurant page has @Model.Restaurants.Count() restaurants</h1>
+    <div>This is the index view</div>
+</body>
+</html>
+

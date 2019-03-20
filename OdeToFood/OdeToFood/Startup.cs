@@ -56,7 +56,7 @@ namespace OdeToFood
             // The template tells MVC how to pick apart the URL in order to determine
             // the correct controller and method.
 
-            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}");
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
         }
         // This is a "conventional" route pattern
         private void ConfigureRoutes1(IRouteBuilder routeBuilder)
