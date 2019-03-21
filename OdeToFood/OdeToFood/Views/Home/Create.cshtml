@@ -1,0 +1,33 @@
+﻿
+@using OdeToFood.Models
+
+@* Because we added the namespace, we can shorten the reference to Restaurant *@
+@model Restaurant
+
+<h1>Create</h1>
+
+@* We don't need an action  in the form because by default this form will post back to the same
+    controller that it was called from. (/home/create) *@
+<form method="post">
+
+    @* Be sure the name of your element matches the name of your property.  If you do things
+        this way, the input knows what type of data is being input because of the type
+        of the property.  This tag helper actually renders into something that looks
+        like this:  <input type="text" id="Name" name="Name" value="" /> *@
+    <input asp-for="Name" />
+
+    @* We are using a tag helper in our select, instead of specifically creating each items.  The
+        asp-items tag helper takes a property of IEnumerable.  Normally, we might grab our list of
+        cuisines from a ViewModel, but we are going to use an HTML helper to grab the elements 
+        directly from the enumeration.
+    *@
+    <select asp-for="Cuisine" asp-items="@Html.GetEnumSelectList<CuisineType>()"></select>
+
+    @* When submit is clicked, an Http post is created and posted to /Home/Create, because
+        it was submitted from a page named Create in a folder named Home. It knows that
+        Name and Cuisine are two values that will be sent to this request.*@
+
+    <input type="submit" name="save" value="Save" />
+
+</form>
+

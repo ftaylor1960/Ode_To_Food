@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OdeToFood.Models;
 
-namespace OdeToFood.Models
+namespace OdeToFood.ViewModels
 {
-    public class Restaurant
+    public class RestaurantEditModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-
         public CuisineType Cuisine { get; set; }
     }
 }

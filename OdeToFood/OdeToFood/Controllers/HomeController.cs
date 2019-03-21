@@ -29,13 +29,6 @@ namespace OdeToFood.Controllers
             return View(model);
         }
 
-        // Because we have set up our route to take an "id" parameter, it knows to
-        // parse this URL (localhost:xxxxx/home/details/22) and use it to call
-        // the Details method with 22 passed in for the id
-        //
-        // Note: our routebuilder in Startrup looks like this:
-        //       routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
-
         public IActionResult Details(int id)
         {
             var model = _restaurantData.Get(id);
@@ -46,6 +39,31 @@ namespace OdeToFood.Controllers
             }
             return View(model);
         }
+
+        // This version of Create it to create the form and send it off to the client
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        // This version of create takes the posted value from the submitted Create page.
+        // You could just pass it a Restaurant object, but because there are potentially
+        // properties in Restaurant that we are not using, a hacker could add information
+        // to the post.  This is called "overposting" - you get back more information than
+        // you were expecting based on the form that you gave the user.  One simple way
+        // to avoid this is to create a dedicated input model (example RestaurantEditModel)
+        // that only includes whose elements that you expect from the form.
+        [HttpPost]
+        public IActionResult Create(RestaurantEditModel model)
+        {
+            Restaurant restaurant = new Restaurant();
+            restaurant.Name = model.Name;
+            restaurant.Cuisine = model.Cuisine;
+            var newRestaurant = _restaurantData.Add(restaurant);
+
+            return View("Details", newRestaurant);
+        }
+
         private IRestaurantData _restaurantData;
         private IGreeter _greeter;
     }

@@ -21,7 +21,10 @@ namespace OdeToFood
         {
             // you don't need to pass the IConfiguration as a parameter, it is automatically injected
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+
+            // Normally, this would be AddScoped, but for test purposes, in order to persist
+            // our data through multiple requests, we will change it to a Singleton
+            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
             services.AddMvc();
         }
 

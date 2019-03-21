@@ -9,15 +9,19 @@
     <table>
         @foreach (var restaurant in Model.Restaurants)
         {
-        <tr>
-            <td>@restaurant.Id</td>
-            <td>@restaurant.Name</td>
+            <tr>
+                <td>@restaurant.Id</td>
+                <td>@restaurant.Name</td>
 
-            <td><a asp-action="Details" asp-route-id="@restaurant.Id">More</a></td>
-        </tr>
+                <td><a asp-action="Details" asp-route-id="@restaurant.Id">More</a></td>
+            </tr>
         }
     </table>
     <h1>My restaurant page has @Model.Restaurants.Count() restaurants</h1>
+
+    @* this tag helper makes it easy to create a button and cause it to go to the correct
+        endpoint. *@
     <a asp-action="Create">Add Restaurant</a>
 </body>
 </html>
+
