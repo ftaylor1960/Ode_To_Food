@@ -42,6 +42,7 @@ namespace OdeToFood.Controllers
 
         // This version of Create it to create the form and send it off to the client
         [HttpGet]
+        [ValidateAntiForgeryToken]  // This should be used for any POST type controller
         public IActionResult Create()
         {
             return View();
@@ -54,14 +55,30 @@ namespace OdeToFood.Controllers
         // to avoid this is to create a dedicated input model (example RestaurantEditModel)
         // that only includes whose elements that you expect from the form.
         [HttpPost]
+        [ValidateAntiForgeryToken]  // This should be used for any POST type controller
         public IActionResult Create(RestaurantEditModel model)
         {
-            Restaurant restaurant = new Restaurant();
-            restaurant.Name = model.Name;
-            restaurant.Cuisine = model.Cuisine;
-            var newRestaurant = _restaurantData.Add(restaurant);
+            // ModelState tells you a lot of information about the state of teh model.  This information
+            // is gathered based on the attributes placed on the ViewModel.
+            if (ModelState.IsValid)
+            {
+                // This is called "model binding", binding data into your model
+                Restaurant restaurant = new Restaurant();
+                restaurant.Name = model.Name;
+                restaurant.Cuisine = model.Cuisine;
+                var newRestaurant = _restaurantData.Add(restaurant);
 
-            return View("Details", newRestaurant);
+                // If we return a view and the user refreshes the page, it will call Create again,
+                // and we might end up with a duplicate POST.  Instead, we will redirect to the
+                // Details page and tell it to get the restaurant that we just created by Id.
+
+                //return View("Details", newRestaurant);
+                return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            }
+            else
+            {
+                return View();
+            }
         }
 
         private IRestaurantData _restaurantData;

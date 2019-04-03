@@ -349,9 +349,67 @@ namespace OdeToFood.Examples
             restaurant.Cuisine = model.Cuisine;
             var newRestaurant = _restaurantData.Add(restaurant);
 
-            return View("Details", newRestaurant);
+            // If we return a view and the user refreshes the page, it will call Create again,
+            // and we might end up with a duplicate POST.  Instead, we will redirect to the
+            // Details page and tell it to get the restaurant that we just created by Id.
+
+            //return View("Details", newRestaurant);
+            return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
         }
 
+        private IRestaurantData _restaurantData;
+        private IGreeter _greeter;
+    }
+    #endregion
+
+    #region HomeController10 ([ValidateAntiForgeryToken], check for model state, handling invalid input)
+    public class HomeController10 : Controller
+    {
+        public IActionResult Index()
+        {
+            var model = new HomeIndexViewModel();
+            model.Restaurants = _restaurantData.GetAll();
+            model.CurrentMessage = _greeter.GetMessageOfTheDay();
+
+            return View(model);
+        }
+        public IActionResult Details(int id)
+        {
+            var model = _restaurantData.Get(id);
+            if (model == null)
+            {
+                // If the user has sent in an invalid id, redirect to the Index method
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]  // This should be used for any POST type controller
+        public IActionResult Create(RestaurantEditModel model)
+        {
+            // ModelState tells you a lot of information about the state of the model.  This information
+            // is gathered based on the attributes placed on the ViewModel.
+            if (ModelState.IsValid)
+            {
+                // This is called "model binding", binding data into your model
+                Restaurant restaurant = new Restaurant();
+                restaurant.Name = model.Name;
+                restaurant.Cuisine = model.Cuisine;
+                var newRestaurant = _restaurantData.Add(restaurant);
+
+                // If we return a view and the user refreshes the page, it will call Create again,
+                // and we might end up with a duplicate POST.  Instead, we will redirect to the
+                // Details page and tell it to get the restaurant that we just created by Id.
+
+                //return View("Details", newRestaurant);
+                return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            }
+            else
+            {
+                return View();
+            }
+        }
         private IRestaurantData _restaurantData;
         private IGreeter _greeter;
     }

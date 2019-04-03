@@ -131,4 +131,13 @@ An example of views which navigate between pages via links which call routes, wi
 In order to set up an input page, you need to create an endpoint that returns a page with a Form.
 There need to be two endpoints, one to create the form and send to the client, the other to
 receive the client information.
-   Examples: HomeController9, Example6Index.cshtml, Example6Details.cshtml, RestaurantEditModel
+   Examples: HomeController9, Example6Index.cshtml, Example6Details.cshtml, RestaurantEditModel, Example6Create.cshtml
+
+After a POST, you should redirect to a page that requests a GET for the new record just added.
+This makes sure the user can't accidentally create another record by pressing refresh.  See HomeController10.
+
+The Example7 suite shows how to use Data Annotations.  In Example7Create, we have added labels with asp-for,
+which causes the page to look to the model to determine labels and data restrictions.  We also see how to
+use [ValidateAntiForgeryToken], how to check for data validation upon posting, and how to handle invalid
+entry.
+See Example7Create.cshtml, Restaurant.cs, RestaurantEditModel.cs, HomeController10
