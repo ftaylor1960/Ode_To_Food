@@ -372,7 +372,11 @@ namespace OdeToFood.Examples
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+
+            // Normally, this would be AddScoped, but for test purposes, in order to persist
+            // our data through multiple requests, we will change it to a Singleton
+            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -397,5 +401,9 @@ namespace OdeToFood.Examples
             });
         }
     }
+    #endregion
+
+    #region Startup9 - Entity Framework
+
     #endregion
 }

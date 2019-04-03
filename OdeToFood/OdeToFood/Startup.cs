@@ -6,15 +6,24 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OdeToFood.Data;
 using OdeToFood.Services;
 
 namespace OdeToFood
 {
     public class Startup
     {
+        private IConfiguration _configuration;
+
+        // IConfiguration is not an injectable service, but it is available at startup
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -22,9 +31,11 @@ namespace OdeToFood
             // you don't need to pass the IConfiguration as a parameter, it is automatically injected
             services.AddSingleton<IGreeter, Greeter>();
 
-            // Normally, this would be AddScoped, but for test purposes, in order to persist
-            // our data through multiple requests, we will change it to a Singleton
-            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+            // we need to tell services how to set up the EF service.  Do this once per context.
+            services.AddDbContext<OdeToFoodDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("OdeToFood")));
+            // change this back to AddScoped because EF is not threadsafe so having a Singleton
+            // would be unsafe.
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
             services.AddMvc();
         }
 

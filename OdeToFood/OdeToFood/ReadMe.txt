@@ -141,3 +141,13 @@ which causes the page to look to the model to determine labels and data restrict
 use [ValidateAntiForgeryToken], how to check for data validation upon posting, and how to handle invalid
 entry.
 See Example7Create.cshtml, Restaurant.cs, RestaurantEditModel.cs, HomeController10
+
+Adding Entity Framework
+-----------------------
+
+Add an ItemGroup to the project file for Microsoft.EntityFrameworkCore.Tools.DotNet (see project file)
+Add a /Data folder, inside it create OdeToFoodDbContext.cs, which models the EF database for OTF
+In /Services add SqlRestaurantData, which inherits IRestaurantData
+In appsettings.json, change the connection string's name and database from _CHANGE_ME to OdeToFood.
+In Startup, add a constructor that takes IConfiguration, then you can register AddDbContext,
+   and AddScoped on the IRestaurantData object, which should now contruct from SqlRestaurantData
