@@ -1,0 +1,10 @@
+﻿@* It is the @page directive that makes this a Razor Page*@
+@* This page's URL would be https://localhost:44300/Greeting*@
+
+@page
+@* This allows you to use dependency injection to have access to services which we have registered.
+    We are accessing the IGreeter, and creating an instance of it named Greeter.*@
+@inject IGreeter Greeter;
+
+<div>Hello in @DateTime.Now.Year!</div>
+<div>@Greeter.GetMessageOfTheDay()</div>

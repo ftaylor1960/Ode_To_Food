@@ -164,3 +164,16 @@ Layouts go in the /Shared folder, inside the /Views folder.  A layout page acts 
 If a _ViewStart.cshtml file is found, it is executed before any other views.  In this page we can pu
    code that will be common to all our pages.
 
+All the example with "10" in them illustrate how to do a layout page.
+If MVC finds a file named _ViewStart.cshtml, it will execute this code before any other.  It is like a
+   base class for layouts.
+In a file called _ViewImport.cshtml, you can put namepaces and taghelper includes.  It is hierarchical.
+
+Razor Pages
+-----------
+
+They are a page that can be called directly, without requiring a controller.  They live in teh /Pages folder.
+
+Greeting1.cshtml - shows a simple razor page with dependency injection
+Greeting2.cshtml - shows how to use the razor's page's model, which is the code-behind
+

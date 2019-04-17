@@ -1,0 +1,25 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    @* A ViewBag is a common way to carry information between views.  It can have any property
+        in it.  Specific content pages can create and set ViewBag properties. *@
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @* This RenderBody call is what is unique to a layout page.  You need to have one
+        in your layout page.  This is where the controller's content page is going to render.*@
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        @* RenderSection is a way to create blocks of content other than the main content page.
+            If required is true, the content page will be required to contain a footer. *@
+        @RenderSection("footer", required: true)
+    </footer>
+</body>
+</html>
+

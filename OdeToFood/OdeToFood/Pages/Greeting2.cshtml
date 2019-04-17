@@ -1,0 +1,15 @@
+﻿@* It is the @page directive that makes this a Razor Page*@
+@* This page's URL would be https://localhost:44300/Greeting*@
+
+@* This says that we expect a parameter called "name" from the URL*@
+@page "{name}"
+@* A razor page's "model" is the code-behind class for the page.  *@
+@model GreetingModel
+
+<div>@Model.CurrentGreeting</div>
+
+@* This section of code will be rendered in the layout page, where we find @RenderSection("footer") *@
+@section footer {
+    At the end of the day...all we have is @Model.Name
+}
+
