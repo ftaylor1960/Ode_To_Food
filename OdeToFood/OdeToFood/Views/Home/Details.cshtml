@@ -1,5 +1,10 @@
 ﻿@model OdeToFood.Models.Restaurant
 
+@{
+    ViewBag.Title = "Restaurant Details page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h1>@Model.Name</h1>
 <div>
     ID: @Model.Id
@@ -8,3 +13,7 @@
     Cuisine: @Model.Cuisine
 </div>
 <a asp-action="Index" asp-controller="Home">View Restaurants</a>
+
+@section footer {
+    @DateTime.Now.ToShortTimeString()
+}

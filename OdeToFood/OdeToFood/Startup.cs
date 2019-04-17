@@ -36,6 +36,9 @@ namespace OdeToFood
             // change this back to AddScoped because EF is not threadsafe so having a Singleton
             // would be unsafe.
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
+
+            //services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+
             services.AddMvc();
         }
 

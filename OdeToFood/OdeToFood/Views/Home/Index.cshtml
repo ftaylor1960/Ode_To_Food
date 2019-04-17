@@ -1,23 +1,30 @@
 ﻿@model OdeToFood.ViewModels.HomeIndexViewModel
+@* Because we are going to be handling the common code in a layout file, we can remove the html, body and head tags
+    from this content page.*@
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>@Model.CurrentMessage</h1>
-    <table>
-        @foreach (var restaurant in Model.Restaurants)
-        {
+@* Content pages can customize common elements in the layout using ViewBags.  These are set inside code blocks.
+    Note: the tilda in the layout name say to start at the root of the website. *@
+@{
+    ViewBag.Title = "Home page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All restaurants</h1>
+<table>
+    @foreach (var restaurant in Model.Restaurants)
+    {
         <tr>
             <td>@restaurant.Id</td>
             <td>@restaurant.Name</td>
 
             <td><a asp-action="Details" asp-route-id="@restaurant.Id">More</a></td>
         </tr>
-        }
-    </table>
-    <h1>My restaurant page has @Model.Restaurants.Count() restaurants</h1>
-    <a asp-action="Create">Add Restaurant</a>
-</body>
-</html>
+    }
+</table>
+<h1>My restaurant page has @Model.Restaurants.Count() restaurants</h1>
+<a asp-action="Create">Add Restaurant</a>
+
+@* This section of code will be rendered in the layout page, where we find @RenderSection("footer") *@
+@section footer {
+    @Model.CurrentMessage
+}

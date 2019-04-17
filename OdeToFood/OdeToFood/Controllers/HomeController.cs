@@ -42,7 +42,7 @@ namespace OdeToFood.Controllers
 
         // This version of Create it to create the form and send it off to the client
         [HttpGet]
-        [ValidateAntiForgeryToken]  // This should be used for any POST type controller
+        //[ValidateAntiForgeryToken]  // This should be used for any POST type controller
         public IActionResult Create()
         {
             return View();
@@ -55,7 +55,7 @@ namespace OdeToFood.Controllers
         // to avoid this is to create a dedicated input model (example RestaurantEditModel)
         // that only includes whose elements that you expect from the form.
         [HttpPost]
-        [ValidateAntiForgeryToken]  // This should be used for any POST type controller
+        //[ValidateAntiForgeryToken]  // This should be used for any POST type controller
         public IActionResult Create(RestaurantEditModel model)
         {
             // ModelState tells you a lot of information about the state of teh model.  This information

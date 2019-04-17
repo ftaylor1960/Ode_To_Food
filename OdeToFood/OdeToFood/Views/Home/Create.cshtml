@@ -4,6 +4,11 @@
 @* Because we added the namespace, we can shorten the reference to Restaurant *@
 @model Restaurant
 
+@{
+    ViewBag.Title = "Create Restaurant page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h1>Create</h1>
 
 @* We don't need an action  in the form because by default this form will post back to the same
@@ -23,7 +28,7 @@
 
     @* We are using a tag helper in our select, instead of specifically creating each items.  The
         asp-items tag helper takes a property of IEnumerable.  Normally, we might grab our list of
-        cuisines from a ViewModel, but we are going to use an HTML helper to grab the elements 
+        cuisines from a ViewModel, but we are going to use an HTML helper to grab the elements
         directly from the enumeration.
     *@
     <div>
@@ -39,4 +44,8 @@
     <input type="submit" name="save" value="Save" />
 
 </form>
+
+@section footer {
+    @DateTime.Now.ToShortTimeString()
+}
 

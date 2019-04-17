@@ -151,3 +151,16 @@ In /Services add SqlRestaurantData, which inherits IRestaurantData
 In appsettings.json, change the connection string's name and database from _CHANGE_ME to OdeToFood.
 In Startup, add a constructor that takes IConfiguration, then you can register AddDbContext,
    and AddScoped on the IRestaurantData object, which should now contruct from SqlRestaurantData
+Open the Developer Command Prompt for VS 2017, go to solution folder
+Type "dotnet ef migrations add InitialCreate" to create a migration class in /Migrations
+Type "dotnet ef database update" to create the database
+
+Layouts and shared views (Example8)
+-----------------------------------
+
+Layouts go in the /Shared folder, inside the /Views folder.  A layout page acts like a "master" page;
+   any content page can be associated with a particular layout page, and that causes the content
+   to be rendered inside the layout page.
+If a _ViewStart.cshtml file is found, it is executed before any other views.  In this page we can pu
+   code that will be common to all our pages.
+
